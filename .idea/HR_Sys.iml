@@ -28,6 +28,7 @@
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/Register/templates" />
         <option value="$MODULE_DIR$/Schedule/templates" />
+        <option value="$MODULE_DIR$/HR/templates" />
       </list>
     </option>
   </component>

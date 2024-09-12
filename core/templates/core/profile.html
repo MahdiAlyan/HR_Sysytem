@@ -7,11 +7,8 @@
             <div class="col-md-3 position-relative">
                 <div class="text-center">
                     <!-- Profile Picture -->
-                    {% if user.profile_image %}
                         <img src="{{ user.profile_image.url }}" alt="Profile Picture" class="img-fluid rounded-circle border border-dark" width="150" height="150" style="object-fit: cover;">
-                    {% else %}
-                        <img src="{% static 'images/default.png' %}" alt="Profile Picture" class="img-fluid rounded-circle border border-dark" width="150" height="150" style="object-fit: cover;">
-                    {% endif %}                   
+                                       
                     <!-- Dropdown Menu for Editing Picture -->
                     <div class="dropdown position-absolute top-0 end-0">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
