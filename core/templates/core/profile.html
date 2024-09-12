@@ -9,8 +9,8 @@
                     <!-- Profile Picture -->
                     {% if user.profile_image %}
                         <img src="{{ user.profile_image.url }}" alt="Profile Picture" class="img-fluid rounded-circle border border-dark" width="150" height="150" style="object-fit: cover;">
-                    {% else  %}
-                        <img src="{{ MEDIA_URL }}{{ 'images/default.png' }}" alt="Profile Picture" class="img-fluid rounded-circle border border-dark" width="150" height="150" style="object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'images/default.png' %}" alt="Profile Picture" class="img-fluid rounded-circle border border-dark" width="150" height="150" style="object-fit: cover;">
                     {% endif %}                   
                     <!-- Dropdown Menu for Editing Picture -->
                     <div class="dropdown position-absolute top-0 end-0">
@@ -44,13 +44,19 @@
 
             <!-- Profile Information Section -->
             <div class="col-md-9">
-                <h2>{{ user.first_name }} {{ user.last_name }}'s Profile</h2>
+                <h2>{{ user.get_full_name }}'s Profile</h2>
                 <hr>
                 <p><strong>Username:</strong> {{ user.username }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Department:</strong> {{ user.profile.department.department_name }}</p>
-                <p><strong>Joined on:</strong> {{ user.profile.start_date|date:"F d, Y" }}</p>
-                <!-- Add more fields like title, etc. as needed -->
+                <p><strong>Date of Birth:</strong> {{ user.date_of_birth|date:"F d, Y" }}</p>
+                <p><strong>Gender:</strong> {{ user.get_gender_display }}</p>
+                <p><strong>Department:</strong> {{ user.department.department_name }}</p>
+                <p><strong>Job Title:</strong> {{ user.job_title }}</p>
+{#                <p><strong>Hourly Rate:</strong> ${{ user.hour_rate }}</p>#}
+{#                <p><strong>Salary:</strong> ${{ user.salary }}</p>#}
+                <p><strong>Joined on:</strong> {{ user.start_date|date:"F d, Y" }}</p>
+                <p><strong>Bio:</strong> {{ user.bio }}</p>
+                <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
             </div>
         </div>
     </div>

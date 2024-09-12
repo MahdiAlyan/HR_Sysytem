@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('', include('Register.urls')),
     path('Schedule/', include('Schedule.urls')),
+    path('', include('HR.urls')),
 
 ]
 if settings.DEBUG:

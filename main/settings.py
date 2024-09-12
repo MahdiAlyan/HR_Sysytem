@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'paycheck',
     'Register',
     'Schedule',
+    'HR',
 
 ]
 
