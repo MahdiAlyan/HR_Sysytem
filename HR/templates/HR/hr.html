@@ -1,8 +1,14 @@
 {% extends 'core/base.html' %}
+    {% block title %}HR{% endblock %}
+
+{% block head %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
     <div class="container mt-5">
         <div class="d-flex justify-content-between">
-            <h2>Users List</h2>
+            <h2>User List</h2>
             <!-- Create User Button (aligned to the right) -->
             <a href="{% url 'create_user' %}" class="btn btn-primary">
                 Create New User
@@ -28,16 +34,17 @@
                         <td>{{ user.department.department_name }}</td>
                         <td>{{ user.job_title }}</td>
                         <td>
-                            <!-- Edit Button with Icon -->
-                            <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-warning">
-                                <i class="bi bi-pencil"></i> <!-- Bootstrap Icon for Edit -->
-                            </a>
+                            <!-- Edit Button with Icon - Trigger Modal -->
+                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editUserModal" data-url="{% url 'edit_user' user.id %}">
+                                 <i class="bi bi-pencil"></i>
+                            </button>
+
 
                             <!-- Delete Button with Icon -->
                             <form action="{% url 'delete_user' user.id %}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="bi bi-trash"></i> <!-- Bootstrap Icon for Delete -->
+                                    <i class="bi bi-trash"></i>
                                 </button>
                             </form>
                         </td>
@@ -46,4 +53,58 @@
             </tbody>
         </table>
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="editUserFormContainer">
+                <!-- Form content will be dynamically loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let editButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            let url = this.getAttribute('data-url');
+            console.log("Fetching data from URL:", url);  // Log the URL
+            let formContainer = document.getElementById('editUserFormContainer');
+
+            formContainer.innerHTML = '';  // Clear previous content
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    console.log("Form content:", html);  // Log the form content
+                    formContainer.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error fetching the form:', error);
+                    formContainer.innerHTML = '<p>There was an error loading the form.</p>';
+                });
+        });
+    });
+});
+
+</script>
+
