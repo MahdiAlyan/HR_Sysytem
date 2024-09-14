@@ -54,7 +54,6 @@
         </table>
     </div>
 
-<!-- Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -63,10 +62,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="editUserFormContainer">
-                <!-- Form content will be dynamically loaded here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>
@@ -82,18 +78,18 @@ document.addEventListener("DOMContentLoaded", function() {
     editButtons.forEach(function(button) {
         button.addEventListener('click', function(event) {
             let url = this.getAttribute('data-url');
-            console.log("Fetching data from URL:", url);  // Log the URL
             let formContainer = document.getElementById('editUserFormContainer');
 
-            formContainer.innerHTML = '';  // Clear previous content
+            // Clear previous form content
+            formContainer.innerHTML = '';
 
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                       throw new Error('Network response was not ok');
                     }
-                    return response.text();
-                })
+                 return response.text();
+                 })
                 .then(html => {
                     console.log("Form content:", html);  // Log the form content
                     formContainer.innerHTML = html;
@@ -105,6 +101,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-
 </script>
 
